@@ -1,39 +1,53 @@
 // get ID or class from index.html where to put new picture - getelementbyid
-const getAddPicture = document.getElementById('add-picture');
+const getAddPicture = document.getElementById('image-container');
+const loader = document.getElementById('loader');
 
-//functionality that each div in html will have a desciption and a link to unsplash - I need to get these from the source
+photosArray = [];
 
-// function or two for loading animation? timing - when on and when off
+// Helper function
 
-// function??? (maybe function is not needed, only once I want to repeat it over and over) to create a new element into HTML and add the picture from API???
+// Create elements for links, photos, add to DOM
 
-let ImgToDOM = document.createElement('img');
-ImgToDOM.src = 'https://source.unsplash.com/random/';
-getAddPicture.appendChild(ImgToDOM);
+function displayPhotos(photo) {
+    photosArray.forEach((photo) => {
+        // Create <a> to link to unsplash
+        const item = document.createElement('a');
+        item.setAttribute('href', photo.links.html);
+        item.setAttribute('target', '_blank');
+        // Create <img for photo
+        const img = document.createElement('img');
+        img.setAttribute('src', photo.urls.regular);
+        img.setAttribute('alt', photo.alt_description);
+        img.setAttribute('title', photo.alt_description);
+        item.appendChild(img);
+        getAddPicture.appendChild(item);
 
-let ImgToDOM2 = document.createElement('img');
-ImgToDOM2.src = 'https://source.unsplash.com/random/';
-getAddPicture.appendChild(ImgToDOM2);
-
-let ImgToDOM3 = document.createElement('img');
-ImgToDOM3.src = 'https://source.unsplash.com/random/';
-getAddPicture.appendChild(ImgToDOM3);
+    });
+    
+    
+}
 
 // function Fetch picture(s) from unsplash API
 // https://source.unsplash.com/random /800x800
 
-async function getPicture() {
-    const apiUrl = 'https://source.unsplash.com/random/800x800';
+
+const count = 10;
+const apiUrl = `https://api.unsplash.com/photos/random/?client_id=bcd45yySEi-_qos0fuA65t5QLPtMBqQcGdFCcDLke0c&count=${count}`;
+
+async function getPicture() { 
     try {
         const response = await fetch(apiUrl);
-        const data = await response.json();
-        console.log(data);
-        
+        photosArray = await response.json();
+        console.log(photosArray);
+        displayPhotos();
 
     } catch (error) {
         console.log('ups!', error);
     }
 }   
+
+
+
 
 getPicture();
 

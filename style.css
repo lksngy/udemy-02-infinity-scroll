@@ -31,11 +31,11 @@ h1 {
 
 }
 
-.add-picture {
+.image-container {
     margin: 10px 25%;
 }
 
-.add-picture img {
+.image-container img {
     width: 100%;
     margin-top: 10px;
 }
@@ -45,7 +45,7 @@ h1 {
 /* mobile version */
 
 @media screen and (max-width: 1000px) {
-    .add-picture {
+    .image-container {
         margin: 10px;
     }
 
